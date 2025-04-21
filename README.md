@@ -2,6 +2,8 @@ about fork
 ==========
 This fork handles base64 encoded request body, and always b64 encodes response body.
 
+Expects api-gateway to have binary types set for `*/*`
+
 aws-lambda-wsgi
 ===============
 
