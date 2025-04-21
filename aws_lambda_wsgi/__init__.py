@@ -54,7 +54,7 @@ def environ(event, context):
     body = b''
     str_body = event.get('body')
     if str_body and event['isBase64Encoded']:
-        body = base64.b64decode(str_body).decode()
+        body = base64.b64decode(str_body)
     elif str_body:
         body = bytes(str_body, 'utf-8')
     environ = {
