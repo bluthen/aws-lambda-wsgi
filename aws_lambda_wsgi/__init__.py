@@ -40,8 +40,8 @@ class StartResponse:
 
     def response(self, output):
         headers = dict(self.headers)
-        is_base64 = False
-        body = self.body.getvalue() + ''.join(map(convert_str, output))
+        is_base64 = True
+        body = base64.b64encode(b''.join(output)).decode('ascii')
         return {
             'statusCode': str(self.status),
             'headers': headers,
