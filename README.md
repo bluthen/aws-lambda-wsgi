@@ -1,3 +1,7 @@
+about fork
+==========
+This fork handles base64 encoded request body, and always b64 encodes response body.
+
 aws-lambda-wsgi
 ===============
 

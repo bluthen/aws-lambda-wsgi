@@ -40,12 +40,8 @@ class StartResponse:
 
     def response(self, output):
         headers = dict(self.headers)
-        if headers.get('Content-Type') in ['image/png', 'image/gif', 'application/octet-stream']:
-            is_base64 = True
-            body = base64.b64encode(b''.join(output)).decode('ascii')
-        else:
-            is_base64 = False
-            body = self.body.getvalue() + ''.join(map(convert_str, output))
+        is_base64 = False
+        body = self.body.getvalue() + ''.join(map(convert_str, output))
         return {
             'statusCode': str(self.status),
             'headers': headers,
@@ -57,7 +53,9 @@ class StartResponse:
 def environ(event, context):
     body = b''
     str_body = event.get('body')
-    if str_body:
+    if str_body and event['isBase64Encoded']:
+        body = base64.b64decode(str_body).decode()
+    elif str_body:
         body = bytes(str_body, 'utf-8')
     environ = {
         'REQUEST_METHOD': event['httpMethod'],
